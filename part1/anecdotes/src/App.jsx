@@ -13,8 +13,39 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
+  const [mostVotesIndex, setMostVotesIndex] = useState(0);
 
-  return <div>{anecdotes[selected]}</div>;
+  const handleNext = () => {
+    setSelected(Math.floor(Math.random() * anecdotes.length));
+  };
+
+  // * I'd use a functional update instead.
+  // * However, calling setMostVotesIndex inside the updater makes it impure.
+  const handleVote = () => {
+    const copy = [...votes];
+    copy[selected] += 1;
+    setVotes(copy);
+
+    // Update the most-voted index if the selected anecdote
+    // receives more votes than the current most-voted anecdote.
+    if (copy[selected] > copy[mostVotesIndex]) {
+      setMostVotesIndex(selected);
+    }
+  };
+
+  return (
+    <>
+      <h2>Anecdote of the day</h2>
+      <div>{anecdotes[selected]}</div>
+      <div>has {votes[selected]} votes</div>
+      <button onClick={handleVote}>vote</button>
+      <button onClick={handleNext}>next anecdote</button>
+      <h2>Anecdote with most votes</h2>
+      <div>{anecdotes[mostVotesIndex]}</div>
+      <div>has {votes[mostVotesIndex]} votes</div>
+    </>
+  );
 };
 
 export default App;
