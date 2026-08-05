@@ -1,0 +1,25 @@
+body {
+  background-color: #f9f3ba;
+}
+
+h2 {
+  font-size: 3em;
+  font-style: italic;
+}
+
+.success {
+  color: #444;
+  background-color: #bbf9c8;
+}
+
+.error {
+  background-color: #fd8a88;
+}
+
+.success,
+.error {
+  font-weight: 700;
+  padding: 1em;
+  border-radius: 0.4em;
+  margin-bottom: 2em;
+}
