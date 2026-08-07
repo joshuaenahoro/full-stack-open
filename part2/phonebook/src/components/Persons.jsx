@@ -1,5 +1,3 @@
-import personService from '../services/persons';
-
 const Persons = ({ persons, handleDelete }) => {
   if (persons.length === 0) {
     return <div>No numbers found.</div>;
