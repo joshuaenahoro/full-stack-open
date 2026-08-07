@@ -52,7 +52,7 @@ const App = () => {
           clearMessage();
           resetForm();
         })
-        .catch((error) => {
+        .catch(() => {
           setMessage({
             body: `Information of ${existingPerson.name} has already been removed from server`,
             type: 'error',
