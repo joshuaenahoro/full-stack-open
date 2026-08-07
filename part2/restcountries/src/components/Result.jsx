@@ -1,4 +1,4 @@
-import Country from './Country';
+import CountryInfo from './CountryInfo';
 
 const Result = ({ result, onShow }) => {
   if (result.length === 0) return;
@@ -8,7 +8,7 @@ const Result = ({ result, onShow }) => {
   }
 
   if (result.length === 1) {
-    return <Country country={result[0]} />;
+    return <CountryInfo country={result[0]} />;
   }
 
   return (

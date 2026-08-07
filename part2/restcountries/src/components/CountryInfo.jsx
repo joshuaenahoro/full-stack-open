@@ -1,6 +1,6 @@
 import WeatherInfo from './WeatherInfo';
 
-const Country = ({ country }) => {
+const CountryInfo = ({ country }) => {
   return (
     <div>
       <h1>{country.name.common}</h1>
@@ -20,4 +20,4 @@ const Country = ({ country }) => {
   );
 };
 
-export default Country;
+export default CountryInfo;
