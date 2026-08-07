@@ -22,7 +22,7 @@ const App = () => {
         find countries{' '}
         <input type="search" value={query} onChange={handleQueryChange} />
       </div>
-      <Result result={filteredCountries} />
+      <Result result={filteredCountries} onShow={setQuery} />
     </>
   );
 };

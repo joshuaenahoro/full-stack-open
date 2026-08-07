@@ -1,4 +1,4 @@
-const Result = ({ result }) => {
+const Result = ({ result, onShow }) => {
   if (result.length === 0) return;
 
   if (result.length > 10) {
@@ -7,7 +7,6 @@ const Result = ({ result }) => {
 
   if (result.length === 1) {
     const country = result[0];
-    console.log(country);
     return (
       <div>
         <h1>{country.name.common}</h1>
@@ -27,7 +26,10 @@ const Result = ({ result }) => {
   return (
     <div>
       {result.map((country) => (
-        <div key={country.cca2}>{country.name.common}</div>
+        <div key={country.cca2}>
+          {country.name.common}
+          <button onClick={() => onShow(country.name.common)}>Show</button>
+        </div>
       ))}
     </div>
   );
