@@ -23,8 +23,11 @@ const App = () => {
   const handleAddPerson = (e) => {
     e.preventDefault();
 
+    const name = newName.trim();
+    const number = newNumber.trim();
+
     const existingPerson = persons.find(
-      (p) => p.name.toLowerCase() === newName.toLowerCase(),
+      (p) => p.name.toLowerCase() === name.toLowerCase(),
     );
 
     const resetForm = () => {
@@ -35,13 +38,13 @@ const App = () => {
     // Update the person if they already exist
     if (existingPerson) {
       const confirmed = window.confirm(
-        `${newName} is already added to phonebook, replace the old number with a new one?`,
+        `${name} is already added to phonebook, replace the old number with a new one?`,
       );
 
       if (!confirmed) return;
 
       personService
-        .update({ ...existingPerson, number: newNumber })
+        .update({ ...existingPerson, number })
         .then((updatedPerson) => {
           setPersons(
             persons.map((p) =>
@@ -64,9 +67,9 @@ const App = () => {
     }
 
     // Add new entry
-    personService.create({ name: newName, number: newNumber }).then((p) => {
+    personService.create({ name, number }).then((p) => {
       setPersons((prev) => prev.concat(p));
-      setMessage({ body: `Added ${newName}` });
+      setMessage({ body: `Added ${name}` });
       clearMessage();
       resetForm();
     });
@@ -87,7 +90,7 @@ const App = () => {
   const handleNumberChange = (e) => setNewNumber(e.target.value);
 
   const filteredPersons = persons.filter((p) =>
-    p.name.toLowerCase().includes(query.toLowerCase()),
+    p.name.toLowerCase().includes(query.toLowerCase().trim()),
   );
 
   return (
