@@ -67,14 +67,20 @@ app.post('/api/persons', (req, res) => {
     return res.status(400).json({ error: 'name or number is missing' });
   }
 
-  if (persons.map((person) => person.name).includes(name)) {
-    return res.status(400).json({ error: 'name must be unique' });
-  }
+  const person = new Person({ name, number });
+  person
+    .save()
+    .then((result) => res.json(result))
+    .catch((err) => res.status(500).json({ error: err.message }));
 
-  const id = String(Math.round(Math.random() * 100000));
-  const person = { id, ...req.body };
-  persons = persons.concat(person);
-  res.json(person);
+  // if (persons.map((person) => person.name).includes(name)) {
+  //   return res.status(400).json({ error: 'name must be unique' });
+  // }
+
+  // const id = String(Math.round(Math.random() * 100000));
+  // const person = { id, ...req.body };
+  // persons = persons.concat(person);
+  // res.json(person);
 });
 
 app.delete('/api/persons/:id', (req, res) => {
