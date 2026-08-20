@@ -14,50 +14,18 @@ app.use(
 app.use(cors());
 app.use(express.static('dist'));
 
-// let persons = [
-//   {
-//     id: '1',
-//     name: 'Arto Hellas',
-//     number: '040-123456',
-//   },
-//   {
-//     id: '2',
-//     name: 'Ada Lovelace',
-//     number: '39-44-5323523',
-//   },
-//   {
-//     id: '3',
-//     name: 'Dan Abramov',
-//     number: '12-43-234345',
-//   },
-//   {
-//     id: '4',
-//     name: 'Mary Poppendieck',
-//     number: '39-23-6423122',
-//   },
-// ];
-
 app.get('/api/persons', (req, res) => {
-  // res.json(persons);
   Person.find({}).then((result) => res.json(result));
 });
 
 app.get('/api/persons/:id', (req, res) => {
   const id = req.params.id;
-  // const person = persons.find((person) => person.id === id);
-
   Person.findById(id)
     .then((person) => res.json(person))
     .catch((err) => {
       res.status(404).end();
       console.log(err.message);
     });
-
-  // if (person) {
-  //   res.json(person);
-  // } else {
-  //   res.status(404).end();
-  // }
 });
 
 app.post('/api/persons', (req, res) => {
@@ -72,15 +40,6 @@ app.post('/api/persons', (req, res) => {
     .save()
     .then((result) => res.json(result))
     .catch((err) => res.status(500).json({ error: err.message }));
-
-  // if (persons.map((person) => person.name).includes(name)) {
-  //   return res.status(400).json({ error: 'name must be unique' });
-  // }
-
-  // const id = String(Math.round(Math.random() * 100000));
-  // const person = { id, ...req.body };
-  // persons = persons.concat(person);
-  // res.json(person);
 });
 
 app.delete('/api/persons/:id', (req, res) => {
