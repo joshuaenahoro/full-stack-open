@@ -11,7 +11,7 @@ Full Stack Open focuses on modern web development using JavaScript. The course c
 - [x] Part 0 – Fundamentals of Web apps
 - [x] Part 1 – Introduction to React
 - [x] Part 2 – Communicating with server
-- [ ] Part 3 – Programming a server with NodeJS and Express
+- [x] Part 3 – Programming a server with NodeJS and Express
 - [ ] Part 4 – Testing Express servers, user administration
 - [ ] Part 5 – Testing React apps, React Router
 - [ ] Part 6 – Advanced state management
