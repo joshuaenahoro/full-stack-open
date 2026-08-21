@@ -55,9 +55,9 @@ const App = () => {
           clearMessage();
           resetForm();
         })
-        .catch(() => {
+        .catch((error) => {
           setMessage({
-            body: `Information of ${existingPerson.name} has already been removed from server`,
+            body: error.response.data.error,
             type: 'error',
           });
           clearMessage();
@@ -67,12 +67,21 @@ const App = () => {
     }
 
     // Add new entry
-    personService.create({ name, number }).then((p) => {
-      setPersons((prev) => prev.concat(p));
-      setMessage({ body: `Added ${name}` });
-      clearMessage();
-      resetForm();
-    });
+    personService
+      .create({ name, number })
+      .then((p) => {
+        setPersons((prev) => prev.concat(p));
+        setMessage({ body: `Added ${name}` });
+        clearMessage();
+        resetForm();
+      })
+      .catch((error) => {
+        setMessage({
+          body: error.response.data.error,
+          type: 'error',
+        });
+        clearMessage();
+      });
   };
 
   // Delete the person
