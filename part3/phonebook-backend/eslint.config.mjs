@@ -8,7 +8,6 @@ export default defineConfig([
     ignores: ['dist/**'],
   },
   eslint.configs.recommended,
-  // { files: ['**/*.mjs'], languageOptions: { sourceType: 'module' } },
   {
     files: ['**/*.js'],
     languageOptions: {

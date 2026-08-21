@@ -8,9 +8,7 @@ const app = express();
 
 app.use(express.json());
 morgan.token('body', (req) => JSON.stringify(req.body));
-app.use(
-  morgan(':method :url :status :res[content-length] - :response-time ms :body'),
-);
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 app.use(cors());
 app.use(express.static('dist'));
 
@@ -44,23 +42,6 @@ app.post('/api/persons', (req, res, next) => {
 });
 
 app.put('/api/persons/:id', (req, res, next) => {
-  // const { number } = req.body;
-
-  // Person.findById(req.params.id)
-  //   .then((person) => {
-  //     if (!person) {
-  //       return res.status(404).end;
-  //     }
-
-  //     person.number = number;
-
-  //     return person.save().then((updatedPerson) => {
-  //       res.json(updatedPerson);
-  //     });
-  //   })
-  //   .catch((err) => next(err));
-
-  // Use single update method
   Person.findOneAndUpdate(
     { _id: req.params.id },
     { $set: { number: req.body.number } },
@@ -82,9 +63,7 @@ app.delete('/api/persons/:id', (req, res, next) => {
 app.get('/info', (req, res, next) => {
   Person.find({})
     .then((results) => {
-      res.send(
-        `<p>Phonebook has info for ${results.length} people</p><p>${Date()}</p>`,
-      );
+      res.send(`<p>Phonebook has info for ${results.length} people</p><p>${Date()}</p>`);
     })
     .catch((err) => next(err));
 });
