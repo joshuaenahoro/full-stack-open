@@ -13,7 +13,7 @@ console.log('connecting to', uri);
 
 mongoose
   .connect(uri, { family: 4 })
-  .then((result) => {
+  .then(() => {
     console.log('connected to MongoDB');
   })
   .catch((error) => {
