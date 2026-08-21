@@ -32,9 +32,9 @@ app.get('/api/persons/:id', (req, res, next) => {
 app.post('/api/persons', (req, res, next) => {
   const { name, number } = req.body;
 
-  if (!name || !number) {
-    return res.status(400).json({ error: 'name or number is missing' });
-  }
+  // if (!name || !number) {
+  //   return res.status(400).json({ error: 'name or number is missing' });
+  // }
 
   const person = new Person({ name, number });
   person
@@ -44,20 +44,32 @@ app.post('/api/persons', (req, res, next) => {
 });
 
 app.put('/api/persons/:id', (req, res, next) => {
-  const { name, number } = req.body;
+  // const { number } = req.body;
 
-  Person.findById(req.params.id)
-    .then((person) => {
-      if (!person) {
-        return res.status(404).end;
-      }
+  // Person.findById(req.params.id)
+  //   .then((person) => {
+  //     if (!person) {
+  //       return res.status(404).end;
+  //     }
 
-      person.number = number;
+  //     person.number = number;
 
-      return person.save().then((updatedPerson) => {
-        res.json(updatedPerson);
-      });
-    })
+  //     return person.save().then((updatedPerson) => {
+  //       res.json(updatedPerson);
+  //     });
+  //   })
+  //   .catch((err) => next(err));
+
+  // Use single update method
+  Person.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: { number: req.body.number } },
+    {
+      returnDocument: 'after', // get updated document
+      runValidators: true,
+    },
+  )
+    .then((updatedPerson) => res.json(updatedPerson))
     .catch((err) => next(err));
 });
 
@@ -83,6 +95,8 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' });
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message });
   }
 
   next(error);
